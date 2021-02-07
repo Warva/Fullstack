@@ -11,21 +11,22 @@ const App = () => {
   ]
   
   const [selected, setSelected] = useState(0)
-  const points = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }
+  var points = new Uint8Array(6)
 
   const nextAnecdote = () => {
     setSelected(Math.floor(Math.random() * 6))
   }
 
-  const vote = () => {
-    const copy = { ...points }
-    copy[2] += 1 
+  const vote = (props) => {
+    const copy = [...points]
+    copy[props.point] += 1 
   }
-
 
   return (
     <div>
-      <p>{anecdotes[selected]}</p>
+      <p>{anecdotes[selected]} <br />
+      has {points[anecdotes[selected]]} votes
+      </p>
       <p>
       <Button text={'vote'} handleClick={vote} />
       <Button text={'next anecdote'} handleClick={nextAnecdote} />
